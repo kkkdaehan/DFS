@@ -1,0 +1,32 @@
+import sys
+sys.setrecursionlimit(1_000_000)  # 재귀 호출이 많을 수 있어 한도를 넉넉히
+
+# 입력 형식:
+# n m
+# (n줄의 0/1 문자열)
+n, m = map(int, input().split())
+graph = [list(map(int, input().strip())) for _ in range(n)]
+
+visited = set()  # 방문한 좌표를 (행, 열) 형태로 저장
+
+def dfs(x, y):
+    """(x, y)에서 시작해 상하좌우로 이어진 0을 모두 방문 표시한다."""
+    visited.add((x, y))
+
+    # 네 방향 이웃 좌표(상, 하, 좌, 우)
+    neighbors = [(x-1, y), (x+1, y), (x, y-1), (x, y+1)]
+    for nx, ny in neighbors:
+        # 범위 안이고, 구멍(0)이며, 아직 방문 전이면 계속 탐색
+        if 0 <= nx < n and 0 <= ny < m:
+            if graph[nx][ny] == 0 and (nx, ny) not in visited:
+                dfs(nx, ny)
+
+count = 0
+for i in range(n):
+    for j in range(m):
+        # 새로운 덩어리의 시작점을 만나면 DFS로 싹 방문 처리
+        if graph[i][j] == 0 and (i, j) not in visited:
+            dfs(i, j)
+            count += 1
+
+print(count)
