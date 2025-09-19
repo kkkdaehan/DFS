@@ -1,0 +1,36 @@
+import sys
+
+def solve():
+    input = sys.stdin.readline
+
+    # 첫 줄: 떡 개수 N, 필요한 길이 M
+    n, m = map(int, input().split())
+
+    # 둘째 줄: 각 떡의 길이
+    arr = list(map(int, input().split()))
+
+    # 절단 높이 H의 탐색 구간: 0 ~ 최장 길이
+    lo, hi = 0, max(arr)
+    best = 0  # 조건(M 이상)을 만족하는 높이 중 최댓값
+
+    while lo <= hi:
+        mid = (lo + hi) // 2  # 이번에 시험해볼 절단 높이(H)
+
+        # mid로 잘랐을 때 잘려 나오는 총 길이 계산
+        cut_sum = 0
+        for x in arr:
+            if x > mid:
+                cut_sum += x - mid
+
+        if cut_sum >= m:
+            # 필요한 양을 충족 ⇒ 더 높게 잘라도 되는지 오른쪽으로 진행
+            best = mid
+            lo = mid + 1
+        else:
+            # 부족 ⇒ 너무 높게 잘랐음, 왼쪽으로 낮춤
+            hi = mid - 1
+
+    print(best)
+
+if __name__ == "__main__":
+    solve()
