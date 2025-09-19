@@ -1,0 +1,47 @@
+# 미로 탈출 (BFS)
+# 입력: N M, 이어서 N줄의 0/1 문자열 (1=이동 가능, 0=벽)
+# 출력: 시작(1,1)에서 끝(N,M)까지의 최소 이동 칸 수(시작·끝 포함)
+
+import sys
+from collections import deque
+
+def solve():
+    input = sys.stdin.readline
+
+    # ----- 입력 -----
+    n, m = map(int, input().split())
+    # '10110' 같은 문자열을 각 자리 정수로 쪼개 2차원 리스트로 만든다.
+    grid = [list(map(int, input().strip())) for _ in range(n)]
+
+    # ----- BFS 준비 -----
+    q = deque()
+    q.append((0, 0))        # 파이썬 인덱스 기준 (0,0)이 문제의 (1,1)
+    grid[0][0] = 1          # 시작 칸의 거리값(칸 수). 방문표시 역할도 겸함.
+
+    # 상·하·좌·우 이동 벡터
+    dx = (-1, 1, 0, 0)
+    dy = (0, 0, -1, 1)
+
+    # ----- BFS -----
+    while q:
+        x, y = q.popleft()  # 가장 먼저 들어온(가까운) 칸부터 꺼낸다.
+
+        # 도착: 처음 도달한 순간의 값이 최단 칸 수
+        if x == n - 1 and y == m - 1:
+            print(grid[x][y])
+            return
+
+        # 4방향 이웃 확인
+        for k in range(4):
+            nx, ny = x + dx[k], y + dy[k]
+
+            # 범위 안, 길(=1), 아직 미방문(값이 1 그대로)일 때만 진행
+            if 0 <= nx < n and 0 <= ny < m and grid[nx][ny] == 1:
+                grid[nx][ny] = grid[x][y] + 1  # 거리 갱신 = 방문 표시
+                q.append((nx, ny))
+
+    # 문제 조건상 도달 가능하지만, 일반 케이스 대비
+    print(-1)
+
+if __name__ == "__main__":
+    solve()
