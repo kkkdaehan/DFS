@@ -1,40 +1,40 @@
 from collections import deque
 
-def solve():
+def start():
     # ----- 입력 -----
     n, m = map(int, input("N과 M을 입력하세요: ").split())
 
-    grid = []
+    maze = []
     print(f"{n}줄의 미로를 입력하세요 (1=길, 0=벽):")
     for _ in range(n):
         # '10110' 같은 문자열을 한 글자씩 잘라서 정수 리스트로 만든다.
         row = list(map(int, input().strip()))
-        grid.append(row)
+        maze.append(row)
 
     # ----- BFS 준비 -----
     q = deque()
     q.append((0, 0))        # 파이썬 인덱스 기준 (0,0)이 문제의 (1,1)
-    grid[0][0] = 1          # 시작 칸의 거리값(칸 수). 방문표시 역할도 겸함.
+    maze[0][0] = 1          # 시작 칸의 거리값(칸 수). 방문표시 역할도 겸함.
 
     # 상·하·좌·우 이동 벡터
-    dx = (-1, 1, 0, 0)
-    dy = (0, 0, -1, 1)
+    x_movement = (-1, 1, 0, 0)
+    y_movement = (0, 0, -1, 1)
 
-    # ----- BFS -----
+    #  BFS 
     while q:
         x, y = q.popleft()
 
         # 도착: 처음 도달한 순간의 값이 최단 칸 수
         if x == n - 1 and y == m - 1:
-            print("최단 거리:", grid[x][y])
+            print("최단 거리:", maze[x][y])
             return
 
         for k in range(4):
-            nx, ny = x + dx[k], y + dy[k]
+            nx, ny = x + x_movement[k], y + y_movement[k]
 
             # 범위 안, 길(=1), 아직 미방문일 때만 진행
-            if 0 <= nx < n and 0 <= ny < m and grid[nx][ny] == 1:
-                grid[nx][ny] = grid[x][y] + 1
+            if 0 <= nx < n and 0 <= ny < m and maze[nx][ny] == 1:
+                maze[nx][ny] = maze[x][y] + 1
                 q.append((nx, ny))
 
     # 문제 조건상 도달 가능하지만, 일반 케이스 대비
@@ -42,4 +42,4 @@ def solve():
 
 
 if __name__ == "__main__":
-    solve()
+    start()
