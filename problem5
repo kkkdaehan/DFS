@@ -1,13 +1,9 @@
-import sys
-
 def solve():
-    input = sys.stdin.readline
-
     # 첫 줄: 떡 개수 N, 필요한 길이 M
-    n, m = map(int, input().split())
+    n, m = map(int, input("떡 개수 N과 필요한 길이 M을 입력하세요: ").split())
 
     # 둘째 줄: 각 떡의 길이
-    arr = list(map(int, input().split()))
+    arr = list(map(int, input("떡의 길이를 입력하세요: ").split()))
 
     # 절단 높이 H의 탐색 구간: 0 ~ 최장 길이
     lo, hi = 0, max(arr)
@@ -30,7 +26,8 @@ def solve():
             # 부족 ⇒ 너무 높게 잘랐음, 왼쪽으로 낮춤
             hi = mid - 1
 
-    print(best)
+    print("최대 절단 높이:", best)
+
 
 if __name__ == "__main__":
     solve()
