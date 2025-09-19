@@ -4,7 +4,7 @@
 N = int(input().strip())
 
 # 둘째 줄: 이동 계획 (공백으로 구분된 L/R/U/D)
-plans = input().split()
+move = input().split()
 
 # 시작 위치 (문제 조건)
 x, y = 1, 1
@@ -14,8 +14,8 @@ x, y = 1, 1
 dx = {'L': 0,  'R': 0,  'U': -1, 'D': 1}
 dy = {'L': -1, 'R': 1,  'U': 0,  'D': 0}
 
-for p in plans:
-    # 다음에 이동할 좌표 후보
+for p in move:
+    # 다음에 이동할 좌표
     nx = x + dx[p]
     ny = y + dy[p]
 
