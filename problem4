@@ -1,29 +1,21 @@
-import sys
-
 def solve():
-    input = sys.stdin.readline
-
     # N: 원소 개수, K: 교체 가능 횟수
-    N, K = map(int, input().split())
-    A = list(map(int, input().split()))
-    B = list(map(int, input().split()))
+    N, K = map(int, input("N과 K를 입력하세요: ").split())
+    A = list(map(int, input("배열 A를 입력하세요: ").split()))
+    B = list(map(int, input("배열 B를 입력하세요: ").split()))
 
     # A는 작은 값부터, B는 큰 값부터 정렬
-    # -> "A의 최소"와 "B의 최대"를 같은 인덱스로 바로 비교 가능
     A.sort()
     B.sort(reverse=True)
 
-    # 앞에서부터 최대 K쌍을 비교하며, 교체로 이득이 있을 때만 스왑
-    # A[i] < B[i]일 때만 A의 합이 증가하므로 그때만 교체
+    # 최대 K쌍 비교 후 교체
     for i in range(K):
         if A[i] < B[i]:
             A[i], B[i] = B[i], A[i]
         else:
-            # 이후 인덱스는 A가 더 크거나 같으므로 더 이상 이득 없음
             break
 
-    # 교체가 끝난 A의 합 출력
-    print(sum(A))
+    print("결과:", sum(A))
 
 
 if __name__ == "__main__":
