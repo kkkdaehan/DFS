@@ -1,20 +1,15 @@
-# nxn 공간 생성 
 N = int(input().strip())
 
-#이동 계획을 split을 통해 공백으로 구분해서 입력받고
 move = input().split()
-# 시작 위치설정
 x, y = 1, 1
 
-# 열의 좌표변환 알려주기
 dy = {'L': 0,  'R': 0,  'U': -1, 'D': 1}
-#행의 "
 dx = {'L': -1, 'R': 1,  'U': 0,  'D': 0}
 
 
 
 for p in move:
-    # 다음에 이동하는 좌표
+    
     nx = x + dy[p]
     ny = y + dx[p]
 
@@ -22,7 +17,7 @@ for p in move:
     if not (1 <= nx <= N and 1 <= ny <= N):
         continue
 
-    # 아니면 위치 옮김
+    
     x, y = nx, ny
 
 # 결과
