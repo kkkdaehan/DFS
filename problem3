@@ -1,29 +1,24 @@
 from collections import deque
 
 def start():
-    #n,m을 입력 받음
+    
     n, m = map(int, input("N과 M을 입력하세요: ").split())
-
     maze = []
     for _ in range(n):
-        #띄어쓰기 없이 문자열을 한 글자씩 잘라서 2차원 리스트로 만듬
         row = list(map(int, input().strip()))
         maze.append(row) 
 
-#상,하,좌,우 이동입력
     x_movement = (-1, 1, 0, 0)
     y_movement = (0, 0, -1, 1)
 
     #BFS
     q = deque()
-    q.append((0, 0))        #시작위치(0,0)을 빈 q에 넣고
-    maze[0][0] = 1          # 시작 칸의 값 1로 바꿈(방문했다 의미로),여기까지 온 칸수
-
-    #BFS q가 빌때까지 반복
+    q.append((0, 0))        
+    maze[0][0] = 1        
+    
     while q:
         x, y = q.popleft()
 
-        # 도착:처음 도달한 순간의 값이 최단 칸 수
         if x == n - 1 and y == m - 1:
             print("최단 거리:", maze[x][y])
             return
@@ -31,12 +26,11 @@ def start():
         for k in range(4):
             nx, ny = x + x_movement[k], y + y_movement[k]
 
-            # 범위 안,길(=1),아직 미방문일 때만 진행
+           
             if 0 <= nx < n and 0 <= ny < m and maze[nx][ny] == 1:
                 maze[nx][ny] = maze[x][y] + 1
                 q.append((nx, ny))
 
-    #끝까지 못갔을때 -1
     print(-1)
 
 
