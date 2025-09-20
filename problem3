@@ -11,14 +11,14 @@ def start():
         row = list(map(int, input().strip()))
         maze.append(row) 
 
+#상,하,좌,우 이동입력
+    x_movement = (-1, 1, 0, 0)
+    y_movement = (0, 0, -1, 1)
+
     #BFS
     q = deque()
     q.append((0, 0))        #시작위치(0,0)을 빈 q에 넣고
     maze[0][0] = 1          # 시작 칸의 값 1로 바꿈(방문했다 의미로),여기까지 온 칸수
-
-    #상,하,좌,우 이동입력
-    x_movement = (-1, 1, 0, 0)
-    y_movement = (0, 0, -1, 1)
 
     #BFS q가 빌때까지 반복
     while q:
