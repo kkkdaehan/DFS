@@ -1,14 +1,12 @@
 def solve():
-    # N: 원소 개수, K: 교체 가능 횟수
+    
     N, K = map(int, input("N과 K를 입력하세요: ").split())
     A = list(map(int, input("배열 A를 입력하세요: ").split()))
     B = list(map(int, input("배열 B를 입력하세요: ").split()))
 
-    # A는 작은 값부터, B는 큰 값부터 정렬
     A.sort()
     B.sort(reverse=True)
 
-    # 최대 K쌍 비교 후 교체
     for i in range(K):
         if A[i] < B[i]:
             A[i], B[i] = B[i], A[i]
@@ -16,7 +14,6 @@ def solve():
             break
 
     print("결과:", sum(A))
-
 
 if __name__ == "__main__":
     solve()
