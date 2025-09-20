@@ -20,6 +20,7 @@ def dfs(x, y):
                 dfs(nx, ny)
 
 count = 0
+#냉장고 싹 훑다가 
 for i in range(n):
     for j in range(m):
         # 새로운 덩어리의 시작점을 만나면 DFS로 싹 방문 처리
