@@ -5,7 +5,7 @@ n, m = map(int, input().split())
 #n번 만큼 하나하나 입력 받고 2차원 리스트 생성
 refrigerator = [list(map(int, input().strip())) for _ in range(n)]
 
-visited = set()  # 방문한 좌표를 (행, 열) 튜플로 저장
+visited = set()  # 방문한 좌표를 (행, 열) 저장
 
 def dfs(x, y):
     #dfs함수 생성해서 다녀간곳 체크
