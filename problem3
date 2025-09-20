@@ -7,7 +7,7 @@ def start():
     maze = []
     print(f"{n}줄의 미로를 입력하세요 (1=길, 0=벽):")
     for _ in range(n):
-        #띄어쓰기 없이 문자열을 한 글자씩 잘라서 정수 리스트로 만듬
+        #띄어쓰기 없이 문자열을 한 글자씩 잘라서 2차원 리스트로 만듬
         row = list(map(int, input().strip()))
         maze.append(row) 
 
