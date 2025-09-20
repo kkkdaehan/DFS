@@ -8,7 +8,7 @@ refrigerator = [list(map(int, input().strip())) for _ in range(n)]
 visited = set()  # 방문한 좌표를 (행, 열) 저장
 
 def dfs(x, y):
-    #dfs함수 생성해서 다녀간곳 체크
+    #dfs함수 생성하고 현재 위치 다녀간거 체크
     visited.add((x, y))
 
     #상,하,좌,우 좌표 수정
