@@ -1,18 +1,17 @@
 import sys
 
-# 입력 형식:
-# n m
-# (n줄의 0/1 문자열)
+# 인풋으로 스플릿써서 n,m입력받음
 n, m = map(int, input().split())
+#n번 만큼 하나하나 입력 받고 2차원 리스트 생성
 refrigerator = [list(map(int, input().strip())) for _ in range(n)]
 
-visited = set()  # 방문한 좌표를 (행, 열) 형태로 저장
+visited = set()  # 방문한 좌표를 (행, 열) 튜플로 저장
 
 def dfs(x, y):
-    """(x, y)에서 시작해 상하좌우로 이어진 0을 모두 방문 표시"""
+    #dfs함수 생성해서 다녀간곳 체크
     visited.add((x, y))
 
-    # 네 방향 이웃 좌표(상, 하, 좌, 우)
+    #상,하,좌,우 좌표 수정
     neighbors = [(x-1, y), (x+1, y), (x, y-1), (x, y+1)]
     for nx, ny in neighbors:
         # 범위 안이고, 구멍(0)이며, 아직 방문 전이면 계속 탐색
@@ -27,5 +26,5 @@ for i in range(n):
         if refrigerator[i][j] == 0 and (i, j) not in visited:
             dfs(i, j)
             count += 1
-
+#전체 덩어리 개수 출력
 print(count)
