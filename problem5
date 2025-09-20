@@ -1,33 +1,26 @@
 def start():
-    #떡 개수 N, 필요한 길이 M
     n, m = map(int, input("떡 개수 N과 필요한 길이 M을 입력하세요: ").split())
 
-    # 각 떡의 길이 입력받기
     length = list(map(int, input("떡의 길이를 입력하세요: ").split()))
 
-    # 정답저장 변수 생성하기
     low, hi = 0, max(length)
-    best_ans = 0  # 조건을 만족하는 높이 중 최댓값을 받는 변수
+    best_ans = 0 
 
     while low <= hi:
-        mid = (low + hi) // 2  #시험해볼 중간값
+        mid = (low + hi) // 2  
 
-        # mid로 잘랐을 때 잘려 나오는 총 길이 계산
         cut_sum = 0
         for x in length:
             if x > mid:
                 cut_sum += x - mid
 
         if cut_sum >= m:
-            # 필요한 양을채웠을때 더 높게 잘라도 되는지  오른쪽으로 진행하기
             best_ans = mid
             low = mid + 1
         else:
-            # 부족할때: 너무 높게 잘랐음, 왼쪽으로 낮춤
             hi = mid - 1
 
     print("최대 절단 높이:", best_ans)
-
 
 if __name__ == "__main__":
     start()
