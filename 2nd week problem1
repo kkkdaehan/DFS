@@ -1,0 +1,30 @@
+int led = 2;              // 원래 LED 핀 그대로
+int button = 3;           // 버튼 핀 추가
+bool blinking = false;    // 깜빡임 상태 저장
+bool last = HIGH;         // 버튼 이전 상태 저장
+
+void setup() {
+  pinMode(led, OUTPUT);
+  pinMode(button, INPUT_PULLUP);  // 버튼 입력
+}
+
+void loop() {
+  bool now = digitalRead(button);
+
+  // 버튼이 눌렸을 때 상태 반전 (토글)
+  if (last == HIGH && now == LOW) {
+    blinking = !blinking;
+    delay(50); // 채터링 방지
+  }
+  last = now;
+
+  // 원래 깜빡임 코드 유지
+  if (blinking) {
+    digitalWrite(led, HIGH);
+    delay(1000);
+    digitalWrite(led, LOW);
+    delay(1000);
+  } else {
+    digitalWrite(led, LOW);
+  }
+}
