@@ -14,11 +14,9 @@ void loop() {
   // 버튼이 눌렸을 때 상태 반전 (토글)
   if (last == HIGH && now == LOW) {
     blinking = !blinking;
-    delay(50); // 채터링 방지
   }
   last = now;
 
-  // 원래 깜빡임 코드 유지
   if (blinking) {
     digitalWrite(led, HIGH);
     delay(1000);
