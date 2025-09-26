@@ -1,0 +1,64 @@
+// 핀 설정
+const int trigPin = 5;   // Trig 핀 (GPIO 5, D5)
+const int echoPin = 4;   // Echo 핀 (GPIO 4, D4)
+const int ledPin  = 2;   // LED 핀 (GPIO 2, D2)
+
+// 감지 기준 거리 (cm)
+const int distanceThreshold = 150; 
+
+bool detected = false; // 현재 감지 상태 저장
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+
+  Serial.begin(115200);
+}
+
+void loop() {
+  long duration, distance;
+
+  // Trig 핀 펄스
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  // Echo 핀 시간 측정 (30ms 타임아웃)
+  duration = pulseIn(echoPin, HIGH, 30000UL);
+
+  // 거리 계산 (cm)
+  if (duration == 0) {
+    distance = 9999; // 반사 없을 때는 멀리 있다고 처리
+  } else {
+    distance = (duration / 2) / 29.1;
+  }
+
+  // 거리 출력
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+
+  // 상태 판정
+  if (distance <= distanceThreshold && distance > 0) {
+    digitalWrite(ledPin, HIGH);
+
+    // 밖에서 안으로 새로 들어올 때
+    if (!detected) {
+      Serial.println("Detected");
+      detected = true;
+    }
+  } else {
+    digitalWrite(ledPin, LOW);
+
+    // 안에서 밖으로 나갈 때
+    if (detected) {
+      Serial.println("Lose");
+      detected = false;
+    }
+  }
+
+  delay(500);
+}
